@@ -51,8 +51,46 @@ Output 4:
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+#include<algorithm>
 
+vector<int> Solution::nextPermutation(vector<int> &A) {
+    
+    int n = A.size();
+    
+    if(n <= 1)
+    return A;
 
+    
+    int i=n-1;
+    
+    while(i >0 && A[i-1] >= A[i])
+      i--;
+      
+      i--;
+      
+      if(i<0)
+      {
+          sort(A.begin(),A.end());
+          return A;
+      }
+      
+      int temp = i+1;
+      for(int k=i+1;k<n;k++)
+      {
+          if(A[k] < A[temp] && A[k] > A[i])
+              temp =k;
+      }
+      
+     int t = A[i];
+     A[i] = A[temp];
+     A[temp]=t;
+     
+     sort(A.begin()+i+1,A.end());
+   
+    return A;
+}
+
+_____________________________________________________________________________________________________________________________________________________________________________________
 vector<int> Solution::nextPermutation(vector<int> &A) {
     int n = A.size();
     vector <int> v;
