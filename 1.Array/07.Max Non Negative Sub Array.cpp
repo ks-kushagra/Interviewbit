@@ -50,7 +50,78 @@ Explanation 2:
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-int all_negative(vector<int> &A){
+
+vector<int> Solution::maxset(vector<int> &A) {
+    
+    int n = A.size();
+    
+long long int max_sum=-1;
+    long long int curr_sum=0;
+    long long int len = 0;
+   long long  int max_len=0;
+    vector <int> ans;
+    vector <int> temp;
+    
+    for(int i=0;i<n;i++)
+     {
+         if(A[i] < 0)
+          {
+              if(max_sum < curr_sum)
+              {
+                  max_sum = curr_sum;
+                  max_len = len;
+                  ans = temp;
+              }
+              
+              else if(max_sum == curr_sum)
+              {
+                  if(max_len < len)
+                  {
+                      ans = temp;
+                  }
+              }
+             
+             vector <int> t;
+             temp = t;
+             curr_sum=0;
+             len=0;
+              
+          }
+          
+          else
+          {
+              curr_sum += A[i];
+              len++;
+              temp.push_back(A[i]);
+          }
+     }
+     
+     if(curr_sum > 0)
+     {
+         if(max_sum < curr_sum)
+              {
+                  max_sum = curr_sum;
+                  max_len = len;
+                  ans = temp;
+              }
+              
+              else if(max_sum == curr_sum)
+              {
+                  if(max_len < len)
+                  {
+                      ans = temp;
+                  }
+              }
+     }
+     
+     return ans;
+}
+     
+_____________________________________________________________________________________________________________________________________________________________________________________      
+    
+ANOTHER SOLUTION
+________________
+    int all_negative(vector<int> &A){
     for(int i=0;i<A.size();i++){
         if(A[i]>=0){
             return 0;
