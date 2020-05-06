@@ -38,6 +38,31 @@ Return the following  :
 
 
 vector<vector<int> > Solution::diagonal(vector<vector<int> > &A) {
+    
+    int n = A.size();
+    
+    if(n==0)
+    return vector <vector<int> >();
+    
+    
+    vector <vector<int> > ans(2*n -1);
+    
+    for(int i=0;i<n;i++)
+     {
+         for(int j =0 ;j<n;j++)
+           {
+               ans[(i+j)].push_back(A[i][j]);
+           }
+     }
+     
+     return ans;
+}
+
+
+
+
+_____________________________________________________________________________________________________________________________________________________________________________________
+vector<vector<int> > Solution::diagonal(vector<vector<int> > &A) {
     vector<vector <int>> hash;
     int n = A[0].size();
     if(n==0){
