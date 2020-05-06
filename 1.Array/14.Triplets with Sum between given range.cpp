@@ -24,6 +24,67 @@ Note: You can assume the numbers in strings don’t overflow the primitive data 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+ 
+ int Solution::solve(vector<string> &A) {
+    
+    
+    int n = A.size();
+    
+    if( n <=2)
+    {
+        return 0;
+    }
+    
+    vector <float> v(A.size());
+    
+    for(int i=0;i<n;i++)
+     v[i] = stof(A[i]);
+    
+     
+     int a = 0, b = 1,c = 2;
+     
+     while(a<n && b<n && c < n)
+     {
+         float sum = v[a]+v[b]+v[c];
+         
+         if(sum > 1 && sum < 2)
+          return 1;
+          
+          int max_index= max(a,max(b,c));
+          
+          
+          if(sum < 1){
+          float min_element = min(v[a] , min(v[b] , v[c]));
+          
+          if(min_element == v[a])
+             a = max_index+1;
+             
+          else if(min_element == v[b])
+           b=max_index+1;
+           
+           else
+            c=max_index+1;
+          }
+          
+          else if(sum > 2)
+          {
+          float max_element = max(v[a] , max(v[b] , v[c]));
+          
+          if(max_element == v[a])
+             a = max_index+1;
+             
+          else if(max_element == v[b])
+           b=max_index+1;
+           
+           else
+            c=max_index+1;
+          }
+     }
+     
+     return 0;
+}
+
+______________________________________________________________________________________________________________________________________________________________________________________________
 
 int Solution::solve(vector<string> &A) {
  
