@@ -22,7 +22,64 @@ In the above example(Input 1), if we sort the subarray A1, A2, then whole array 
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+vector<int> Solution::subUnsort(vector<int> &A) {
+    
+    int n = A.size();
+    vector <int> ans;
+    
+    int l=0;
+    int r = n-1;
+    while(l < n-1 && A[l]<= A[l+1])
+     l++;
+     
+     while(r>0 && A[r-1] <= A[r])
+       r--;
+       
+    
+    if(l > r){
+     ans.push_back(-1);
+     return ans;
+    }
+       
+    int max_between=INT_MIN;
+    int min_between=INT_MAX;
+    for(int i=l;i<=r;i++)
+    {
+        max_between = max(max_between,A[i]);
+        min_between = min(min_between , A[i]);
+    }
+    
+    int l1=-1;
+    int r1=-1;
+    int max_left=INT_MIN;
+    int min_right = INT_MAX;
+    
+    for(int i=0;i<l;i++)
+      {
+          if(min_between < A[i])
+             {
+                 l =i;
+                 break;
+             }
+      }
+      
+      for(int i=n-1;i>r;i--)
+      {
+          if(max_between > A[i])
+          {
+              r = i;
+              break;
+          }
+      }
 
+    ans.push_back(l);
+    ans.push_back(r);
+    
+    return ans;
+     
+}
+
+____________________________________________________________________________________________________________________________________________________________________________________________________________
 int sorted(vector<int> &A){
     for(int i =0;i<A.size()-1;i++){
         if(A[i]>A[i+1]){
