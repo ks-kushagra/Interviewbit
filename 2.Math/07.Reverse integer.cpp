@@ -18,7 +18,34 @@ Return 0 if the result overflows and does not fit in a 32 bit signed integer
 
 ___________________________________________________________________________________________________________________________________________________________________________________
 
+int Solution::reverse(int A) {
+    int sign=0;
+    if(A < 0)
+    sign = 1;
+    
+    A=abs(A);
+    string s = to_string(A);
+    
+    string s1 ="";
+    
+    for(int i=0;i<s.length();i++)
+      s1 = s[i]+s1;
+    
+    
+    long long int ans = stol(s1);
+    
+    if(ans > INT_MAX)
+    return 0;
+    
+    int t = ans;
+    
+    if(sign)
+     return -t;
+     
+     return t;
+}
 
+___________________________________________________________________________________________________________________________________________________________________-
 int Solution::reverse(int A) {
     int sign=0;
     if(A<0)
