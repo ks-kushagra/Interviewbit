@@ -10,31 +10,25 @@ Given 1->1->1->2->3, return 2->3.
 __________________________________________________________________________________________________________________________________________________________________
 ListNode* Solution::deleteDuplicates(ListNode* A) {
     
-    if(A==NULL)
+    if(A==NULL||A->next == NULL)
     return A;
-    
-    if(A->next == NULL)
-     return A;
+
+    map <int, pair<ListNode *,int> > mp;
+    ListNode *p=A;
      
-     
-     map <int, pair<ListNode *,int> > mp;
-     
-     ListNode *p=A;
-     
-     while(p!=NULL)
+    while(p!=NULL)
      {
          if(mp.find(p->val) == mp.end())
          {
-        ListNode *q = (ListNode *)malloc(sizeof(ListNode));
+         ListNode *q = (ListNode *)malloc(sizeof(ListNode));
          q->val = p->val;
-         q->next = NULL;
          mp[p->val] = {q , 1} ;
          }
          
          else
            mp[p->val].second++;
            
-           p=p->next;
+       p=p->next;
      }
      
      A = NULL;
