@@ -28,8 +28,32 @@ If n = 4 and k = 2, a solution is:
 ________________________________________________________________________________________________________________________________________________________________________________________
 
 
+void solve(vector <vector <int> > &ans , vector <int> temp ,int A ,int B , int curr)
+{
+ if(temp.size()== B)
+   {
+       ans.push_back(temp);
+       return;
+   }
+   
+   for(int i=curr;i<=A;i++)
+   {
+       temp.push_back(i);
+       solve(ans , temp , A , B , i+1);
+       temp.pop_back();
+   }
+  
+  
+}
+vector<vector<int> > Solution::combine(int A, int B) {
+    vector < vector <int> > ans;
+    vector <int> temp;
+    solve(ans,temp,A , B , 1);
+    return ans;
+}
 
 
+_____________________________________________________________________________________________________________________________________________________________________________________________________
 
 
 void combinations(int n ,int k ,vector < vector <int> > &ans, vector <int> temp,int curr)
