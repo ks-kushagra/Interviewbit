@@ -26,7 +26,29 @@ If S = [1,2,3], a solution is:
 
 _________________________________________________________________________________________________________________________________________________________________________________________________________
 
+void solve(vector <vector <int> > &ans , vector <int> temp , vector <int> A , int curr)
+{
+    ans.push_back(temp);
+    
+    for(int i=curr;i<A.size();i++)
+    {
+        temp.push_back(A[i]);
+        solve(ans,temp,A,i+1);
+        temp.pop_back();
+    }
+}
 
+vector<vector<int> > Solution::subsets(vector<int> &A) {
+    
+    sort(A.begin(),A.end());
+    vector <vector <int> > ans;
+    vector <int> temp;
+    solve(ans , temp , A , 0);
+    return ans;
+}
+
+
+______________________________________________________________________________________________________________________________________________________________________________________________________________________
 void make(vector<int>& A, vector<int> temp, int curr, vector<vector<int> >& ans){
     int n = A.size();
     
