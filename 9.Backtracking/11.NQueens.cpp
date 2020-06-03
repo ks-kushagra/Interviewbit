@@ -28,10 +28,94 @@ There exist two distinct solutions to the 4-queens puzzle:
 
 _________________________________________________________________________________________________________________________________________________________________________________________________
 
+int isSafe(vector<vector<string> > grid, int i,int j)
+{
+    int n = grid.size();
+    int m = grid[0].size();
+    
+    
+    //row attack
+    for(int l = 0;l<n ;l++)
+    {
+        if(grid[l][j] == "Q")
+         return 0;
+    }
+    
+    //column attack
+    for(int l = 0;l<m;l++)
+    {
+        if(grid[i][l] == "Q")
+        return 0;
+    }
+    
+    
+    //diagonal attack
+    
+    for(int l=i,r=j;l>=0 && r>=0; l--,r--)
+    {
+        if(grid[l][r]=="Q")
+        return 0;
+    }
+    
+    for(int l=i,r=j;l>=0 && r<m; l--,r++)
+    {
+        if(grid[l][r]=="Q")
+        return 0;
+    }
+    
+  for(int l=i,r=j;l<n && r>=0; l++,r--)
+    {
+        if(grid[l][r]=="Q")
+        return 0;
+    }  
+    
+    for(int l=i,r=j;l<n && r<m; l++,r++)
+    {
+        if(grid[l][r]=="Q")
+        return 0;
+    }
+    
+    return 1;
+}
+void solve(vector<vector<string> > &ans ,vector<vector<string> > grid, int i)
+{
+    if(i == grid.size())
+       {
+           vector<string> temp;
+           for(int i1=0;i1<grid.size();i1++)
+           {
+               string t="";
+               for(int j=0;j<grid[i1].size();j++)
+                  t=t+grid[i1][j];
+                  
+              temp.push_back(t);
+           }
+           
+           ans.push_back(temp);
+           return;
+       }
+       
+       
+     for(int p = 0;p<grid[i].size();p++)
+     {
+         if(isSafe(grid , i , p))
+         {
+             grid[i][p]="Q";
+             solve(ans,grid, i+1);
+             grid[i][p]=".";
+         }
+     }
+}
+vector<vector<string> > Solution::solveNQueens(int A) {
+    vector <vector <string> > ans;
+    vector<vector<string> > grid(A , vector <string> (A , "."));
+    solve(ans,grid, 0);
+    return ans;
+}
 
 
 
-
+_________________________________________________________________________________________________________________________________________________________________________________________________________________
 bool isSafe(vector<vector<string>> &testBoard, int row, int col, int A)
 {
     for(int j=0;j<col;j++)
