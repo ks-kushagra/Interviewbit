@@ -118,3 +118,10 @@ int Solution::t2Sum(TreeNode* A, int B) {
  
  return solve(A , B, A);
 }
+
+___________________________________________________________________________________________________________________________________________________________________________
+
+
+Another approach is that you can inorder the tree ans store every element hih results you a sorted vector.
+    Now you can use 2 pointers approach for finding sum of two elements
+    
