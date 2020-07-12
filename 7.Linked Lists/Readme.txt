@@ -1,1 +1,1 @@
-Solution for math section
+Solution for Linked  List section
