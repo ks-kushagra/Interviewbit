@@ -1,0 +1,32 @@
+int Solution::solve(vector<int> &A, int B) {
+
+int  n = A.size();
+vector < int > sumFromLeft(n) , sumFromRight(n);
+
+for(int i=0 , j = n-1;i<n && j >=0 ;i++ , j--){
+    if(i==0){
+        sumFromLeft[i] = (A[i]);
+    }else{
+        sumFromLeft[i] = (sumFromLeft[i-1] + A[i]);
+    }
+    
+        if(j==n-1){
+        sumFromRight[j] = (A[j]);
+    }else{
+        sumFromRight[j] = (sumFromRight[j+1] + A[j]);
+    }
+}
+
+
+//If B >= n that means , need to return sum of all elements
+if(B >= n){
+    return sumFromLeft[n-1];
+}
+
+int max_sum = max(sumFromLeft[B-1] , sumFromRight[n - B]);
+for(int a=1;a<B;a++){
+    max_sum = max(max_sum , (sumFromLeft[a-1] + sumFromRight[n - (B - a)]));
+}
+return max_sum;
+
+}
