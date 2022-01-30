@@ -1,0 +1,67 @@
+Solution 1. ( Tinme : O(n) , Space : O(n) )
+
+
+vector<int> Solution::solve(vector<int> &A) {
+   int zeros = 0;
+    vector <int> ans;
+    for(int i=0;i<A.size();i++){
+        if(A[i] == 0){
+            zeros++;
+        }else{
+            ans.push_back(A[i]);
+        }
+    }
+    
+    while(zeros--){
+        ans.push_back(0);
+    }
+    return ans;
+    }
+    
+    
+    
+    
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Solution 2. ( Tinme : O(n) , Space : O(1) )
+
+    
+    int n = A.size();
+
+    int i=0, j=0;
+
+    // i to iterate the array
+
+    // j is the next valid index where the non zero element goes
+
+
+    while(i<n) {
+
+        if(A[i]!=0) { 
+
+            A[j] = A[i];
+
+            j++;
+
+        }
+
+
+        i++;
+
+    }
+
+    // after all the non zero elements are place, fill the remaing places with zeros 
+
+    // (we were skipping zeroes while iterating)
+
+    // till j reaches n
+
+    while(j<n){
+
+        A[j] = 0;
+
+        j++;
+
+    }
+
+    return A;
+}
