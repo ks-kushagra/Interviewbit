@@ -1,0 +1,24 @@
+int Solution::solve(vector<int> &A, int B) {
+    
+    int n = A.size();
+    
+    int curr=0;
+    int ans =0;
+    while(curr<n){
+        int flag = 0;
+        for(int j = curr+B-1 ; j >= max(0 , curr - B +1);j--){
+            if(A[j] == 1){
+                flag =1;
+                curr = j + B;
+                break;
+            }
+        }
+        
+        if(flag){
+            ans++;
+        }else{
+            return -1;
+        }
+    }
+    return ans;
+}
