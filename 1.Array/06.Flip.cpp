@@ -34,71 +34,55 @@ No operation can give us more than three 1s in final string. So, we return empty
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-int count_1(string A){
-    int n = A.size();
-    int count =0;
-    for(int i=0;i<n;i++){
-        if(A[i]=='1'){
-            count++;
-        }
-    }
-    return count;
-}
-int MAX(int i,int j){
-    return (i>j?i:j);
-}
-vector<int> Solution::flip(string A) {
- 
-      int l=A.length(), zero=0, ones=0;
-    vector<int> v(l), res;
-    
-    for(int i=0;i<l;i++)
-    {
-        
-        if(A[i]=='1') 
-          v[i]=-1;
-        else v[i]=1;
-    }
-    
-    int ms=0, me=0, st=INT_MAX, e=INT_MAX, k=0;
-    
-    for(int i=0; i<l; i++)
-    {
-        if(me+v[i]<0)
-        {
-            k=i+1;
-            me=0;
-        }
-        else 
-        me+=v[i];
-        
-        if(me>ms)
-        {
-            ms=me;
-            st=k;
-            e=i;
-        }
-    }
-    
-    if(st==INT_MAX)
-    return vector<int>();
-    
-    res.push_back(st+1); 
-    res.push_back(e+1);
-    
-    return res;
-}
-
-
-
-
 Note what is the net change in number of 1s in string S when we flip bits of string S.
 Say it has A 0s and B 1s. Eventually, there are B 0s and A 1s.
 
 So, number of 1s increase by A - B. 
     We want to choose a subarray which maximises this. Note, if we change 1s to -1, then sum of values will give us A - B.
     Then, we have to find a subarray with maximum sum, which can be done via Kadane’s Algorithm
+    
+    
+    
+    
+    
+ vector<int> Solution::flip(string A) {
+    int n = A.length();
+    vector<int> v(n);
+    
+    for(int i=0;i<n;i++){
+        if(A[i]=='0'){
+            v[i]=1;
+        }else{
+            v[i]=-1;
+        }
+    }
+    
+    
+    int left=INT_MAX,right=0,maxValue = 0;
+    int k=0;
+    int sum =0;
+    for(int i=0;i<n;i++){
+        sum = sum + v[i];
+        
+        if(sum > maxValue){
+            right = i;
+            left = k;
+            maxValue = sum;
+        }
+        
+        if(sum < 0){
+            sum =0;
+            k = i+1;
+        }
+    }
+    vector<int> ans;
+    
+    if(left==INT_MAX)
+      return vector <int> ();
+      
+    ans.push_back(left+1);
+    ans.push_back(right+1);
+    return ans;
+    
+}
+
