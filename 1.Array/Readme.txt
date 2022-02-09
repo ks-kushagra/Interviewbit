@@ -1,1 +1,0 @@
-This contain solution for array
