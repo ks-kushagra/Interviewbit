@@ -35,3 +35,48 @@ string Solution::largestNumber(const vector<int> &A) {
             while (result[pos] == '0' && pos + 1 < result.size()) pos++; 
             return result.substr(pos);
 }
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+            bool compare(const string &a , const string &b){
+    
+return (a+b > b+a);
+}
+
+int all_zeros(vector<string> s){
+    for(int i=0;i<s.size();i++){
+        if(s[i]!="0"){
+            return false;
+        }
+    }
+    return true;
+}
+
+string Solution::largestNumber(const vector<int> &A) {
+    vector<string> s;
+    int n = A.size();
+    if(n==0){
+        return "";
+    }
+    
+    if(n==1){
+        return std::to_string(A[0]);
+    }
+    
+    for(int i=0;i<A.size();i++){
+        s.push_back(std::to_string(A[i]));
+    }
+    
+    if(all_zeros(s)){
+        return "0";
+    }
+    sort(s.begin(),s.end() , compare);
+    
+    string ans = "";
+    for(int i=0;i<A.size();i++){
+        ans += s[i];
+    }
+    return ans;
+}
+
