@@ -1,0 +1,126 @@
+char identifyLogs(string s){
+    int i=0;
+    for(;i<s.length();i++){
+        if(s[i]=='-'){
+            i++;
+            break;
+        }
+    }
+    
+    if(s[i] >= '0' && s[i]<='9'){
+        return 'd';
+    }
+    return 'l';
+}
+
+pair<string , string> extractId(string A){
+    int i=0;
+    int n = A.length();
+    string id = "";
+    string logs = "";
+    while(i<n && A[i]!='-'){
+        id = id + A[i];
+        i++;
+    }
+    
+    while(i<n){
+        logs += A[i];
+        i++;
+    }
+    return {logs , id};
+}
+
+bool compare(const string &A , const string &B){
+    pair<string , string> a = extractId(A);
+    pair<string , string> b = extractId(B);
+    return a.first <= b.first;
+}
+
+vector<string> Solution::reorderLogs(vector<string> &A) {
+    vector<string> digitLogs;
+    vector<string> letterLogs;
+    int n = A.size();
+    for(int i=0;i<n;i++){
+        char logs = identifyLogs(A[i]);
+        
+        if(logs == 'd'){
+            digitLogs.push_back(A[i]);
+        }else{
+            letterLogs.push_back(A[i]);
+        }
+    }
+    
+    sort(letterLogs.begin(),letterLogs.end(),compare);
+    vector<string> ans;
+    for(auto it = letterLogs.begin();it != letterLogs.end();it++){
+        ans.push_back(*it);
+    }
+    
+    for(int i=0;i<digitLogs.size();i++){
+        ans.push_back(digitLogs[i]);
+    }
+    
+    return ans;
+}
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Using Multi map::
+
+char identifyLogs(string s){
+    int i=0;
+    for(;i<s.length();i++){
+        if(s[i]=='-'){
+            i++;
+            break;
+        }
+    }
+    
+    if(s[i] >= '0' && s[i]<='9'){
+        return 'd';
+    }
+    return 'l';
+}
+
+pair<string , string> extractId(string A){
+    int i=0;
+    int n = A.length();
+    string id = "";
+    string logs = "";
+    while(i<n && A[i]!='-'){
+        id = id + A[i];
+        i++;
+    }
+    
+    while(i<n){
+        logs += A[i++];
+    }
+    return {logs , id};
+}
+vector<string> Solution::reorderLogs(vector<string> &A) {
+    
+    vector<string> digitLogs;
+    multimap<string , string> letterLogs;
+    int n = A.size();
+    for(int i=0;i<n;i++){
+        char logs = identifyLogs(A[i]);
+        
+        if(logs == 'd'){
+            digitLogs.push_back(A[i]);
+        }else{
+            letterLogs.insert(extractId(A[i]));
+        }
+    }
+    
+    vector<string> ans;
+    
+    for(auto it = letterLogs.begin();it != letterLogs.end();it++){
+        ans.push_back(it->second + it->first);
+    }
+    
+    for(int i=0;i<digitLogs.size();i++){
+        ans.push_back(digitLogs[i]);
+    }
+    
+    return ans;
+}
+
+
