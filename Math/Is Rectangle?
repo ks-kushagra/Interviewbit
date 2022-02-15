@@ -1,0 +1,12 @@
+int Solution::solve(int A, int B, int C, int D) {
+    
+    if(A==B){
+        return (A!=C && C==D);
+    }else if(A==C){
+        return (A!=B && B==D);
+    }else if(A==D){
+        return (A!=B && B == C);
+    }else{
+        return 0;
+    }
+}
