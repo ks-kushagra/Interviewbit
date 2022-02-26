@@ -1,0 +1,8 @@
+string Solution::solve(string A) {
+    bool hasNext = next_permutation(A.begin(),A.end());
+    
+    if(hasNext){
+        return A;
+    }
+    return "-1";
+}
