@@ -15,6 +15,49 @@ cab
 cba
 
 The answer might not fit in an integer, so return your answer % 1000003
+________________________________________________________________________________________________________________________________________________________________-
+
+#define MOD 1000003
+
+int factorial(int n){
+    int ans=1;
+    
+    while(n>0){
+        ans = (ans*n)%MOD;
+        n--;
+    }
+    
+    return ans;
+}
+int numberOfElementLessThanN(string list  , char N , set<char> s){
+    int ans=0;
+    
+    for(int i=0;i<list.length();i++){
+        if(list[i]<N && s.find(list[i])==s.end()){
+            ans++;
+        }
+        
+        if(list[i]==N){
+            break;
+        }
+    }
+    return ans;
+}
+
+int Solution::findRank(string A) {
+    string sortedA = A;
+    sort(sortedA.begin(),sortedA.end());
+    int ans =0 ;
+    int n = A.length();
+    set<char> s;
+    for(int i=0;i<n-1;i++){
+        int numberOfElements = numberOfElementLessThanN(sortedA , A[i] , s);
+        ans = (ans + ((numberOfElements)*factorial(n-1-i))%MOD)%MOD;
+        s.insert(A[i]);
+    }
+    
+    return (ans+1)%MOD;
+}
 
 ________________________________________________________________________________________________________________________________________________________________-
 
