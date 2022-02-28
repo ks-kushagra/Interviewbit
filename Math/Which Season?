@@ -1,0 +1,26 @@
+#define sp "Spring"
+#define s "Summer"
+#define a "Autumn"
+#define w "Winter"
+
+string Solution::solve(int A) {
+    vector<string> season(12);
+
+    for(int i=1;i<=12;i++){
+        if(i<=2 || i == 12){
+            season[i-1]=w;
+        }else if(i<=5){
+            season[i-1]=sp;
+        }else if(i<=8){
+            season[i-1]=s;
+        }else{
+            season[i-1]=a;
+        }
+    }
+
+    if(A<1 || A>12){
+        return "Invalid";
+    }
+
+    return season[A-1];
+}
