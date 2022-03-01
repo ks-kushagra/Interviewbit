@@ -47,6 +47,54 @@ Input 2:
     B = 3
 Output 2:
     0
+____________________________________________________________________________________________________________________________________________________________________
+
+  int findRow(vector<vector<int>> &A , int B){
+    int rowSize = A.size();
+    int colSize = A[0].size();
+    int start =0, end = rowSize-1;
+
+    while(start<=end){
+        int mid = (start+end)/2;
+
+        if(A[mid][0]<=B && A[mid][colSize-1]>=B){
+            return mid;
+        }
+
+        if(A[mid][0]>B){
+            end = mid-1;
+        }else{
+            start = mid+1;
+        }
+    }
+    return -1;
+}
+
+int binarySearch(vector<int> A , int B) {
+    int start =0 , end = A.size()-1;
+
+    while(start<=end){
+        int mid = (start+end)/2;
+
+        if(A[mid]==B){
+            return mid;
+        }else if(A[mid]<B){
+            start  = mid+1;
+        }else{
+            end = mid-1;
+        }
+    }
+    return -1;
+}
+int Solution::searchMatrix(vector<vector<int> > &A, int B) {
+
+    int row=findRow(A,B);
+    if(row == -1){
+        return 0; // out of range
+    }
+
+    return (binarySearch(A[row] , B)==-1)?0:1;
+}
 
 ____________________________________________________________________________________________________________________________________________________________________
 
