@@ -1,0 +1,36 @@
+#define MOD 1000000007
+int isVowel(char a){
+    if(a == 'a' || a == 'e' || a == 'i' || a == 'o' || a == 'u'){
+        return 1;
+    }else{
+        return 0;
+    }
+}
+int Solution::solve(string A) {
+    int n = A.length();
+    vector<int> vowels(n+1,0);
+    vector<int> cons(n+1,0);
+
+    for(int i=0;i<n;i++){
+        if(isVowel(A[i])){
+            A[i]='V';
+            vowels[i+1]=vowels[i]+1;
+            cons[i+1]=cons[i];
+        }else{
+            A[i]='C';
+            vowels[i+1]=vowels[i];
+            cons[i+1] = cons[i]+1;
+        }
+    }
+
+    int ans=0;
+    for(int i=1;i<=n;i++){
+        if(A[i-1] == 'V'){
+            ans = (ans + cons[n]-cons[i])%MOD;
+        }else{
+            ans = (ans + vowels[n]-vowels[i])%MOD;
+        }
+    }
+
+return ans%MOD;
+}
