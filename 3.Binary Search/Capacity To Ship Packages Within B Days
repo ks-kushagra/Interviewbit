@@ -1,0 +1,42 @@
+int isValid(vector<int> A , int n ,int B , int maxWt){
+    int days=1;
+    int sum=0;
+
+    for(int i=0;i<n;i++){
+        sum += A[i];
+
+        if(sum > maxWt){
+            days++;
+            sum = A[i];
+        }
+
+        if(days > B){
+            return 0;
+        }
+    }
+
+    return 1;
+}
+int Solution::solve(vector<int> &A, int B) {
+
+    int n = A.size();
+    int start = 0 , end =0;
+
+    for(int i=0;i<n;i++){
+        start = max(start,A[i]);
+        end += A[i];
+    }
+    int ans = -1;
+    while(start <= end){
+        int mid = start + (end - start)/2;
+
+        if(isValid(A , n , B ,mid)){
+            ans = mid;
+            end = mid-1;
+        }else{
+            start = mid+1;
+        }
+    }
+
+    return ans;
+}
