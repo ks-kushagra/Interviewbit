@@ -55,19 +55,17 @@ Input 2:
     C = [1, 8, 11, 3]
 Output 2:
     11
-
-
+            
 _______________________________________________________________________________________________________________________________________________________________________________________
 
-
-int isValid(vector <int> C , int painters , long long int mid)
+int isValid(vector <int> C , int painters , int mid)
 {
-    long long int cp =1;
-    long long int sum =0;
-    
-    for(int i=0;i<C.size();i++)
+    int cp =1;
+    int sum =0;
+    int n = C.size();
+    for(int i=0;i<n;i++)
     {
-        sum += C[i];
+        sum = (sum + C[i])% 10000003;
         if(sum > mid)
         {
             cp++;
@@ -81,14 +79,14 @@ int isValid(vector <int> C , int painters , long long int mid)
     
     return 1;
 }
-
 int Solution::paint(int A, int B, vector<int> &C) {
     
-    long long int start =0,end =0;
+    int start =0,end =0;
     int ans =0;
-    for(int i=0;i<C.size();i++)
+    int n = C.size();
+    for(int i=0;i<n;i++)
      {
-         end += C[i];
+         end = (end + C[i])% 10000003;
          
          if(start < C[i])
           start = C[i];
@@ -96,13 +94,13 @@ int Solution::paint(int A, int B, vector<int> &C) {
      
      if(A == 1)
      {
-         return (B*end) % 10000003;
+         return ((long long int)B*(long long int)end) % 10000003;
      }
      
      
      while(start <= end)
      {
-         long long int mid = (start + (end - start) /2);
+         int mid = ((start + (end - start) /2))%10000003;
          
          if(isValid(C , A , mid))
          {
@@ -114,5 +112,6 @@ int Solution::paint(int A, int B, vector<int> &C) {
           start = mid +1;
      }
      
-     return (ans*B) % 10000003;
+     return ((long long int)B*(long long int)ans) % 10000003;
 }
+_______________________________________________________________________________________________________________________________________________________________________________________
