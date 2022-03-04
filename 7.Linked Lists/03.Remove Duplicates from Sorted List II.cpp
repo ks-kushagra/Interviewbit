@@ -6,6 +6,52 @@ Given a sorted linked list, delete all nodes that have duplicate numbers, leavin
 For example,
 Given 1->2->3->3->4->4->5, return 1->2->5.
 Given 1->1->1->2->3, return 2->3.
+__________________________________________________________________________________________________________________________________________________________________
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+
+ListNode *newNode(int value){
+    ListNode *p = (ListNode *)malloc(sizeof(ListNode));
+    p->next=NULL;
+    p->val = value;
+    return p;
+}
+
+
+ListNode* Solution::deleteDuplicates(ListNode* A) {
+    if(A==NULL || A->next == NULL){
+        return A;
+    }
+
+    map<int , int > mp;
+    ListNode *p = A;
+    while(p!=NULL){
+        mp[p->val]++;
+        p=p->next;
+    }
+    ListNode *ans=NULL;
+    for(auto it = mp.begin();it != mp.end();it++){
+        if(it->second == 1){
+            ListNode *temp = newNode(it->first);
+            if(ans == NULL){
+                p=temp;
+                ans = temp;
+            }else{
+                p->next = temp;
+                p=p->next;
+            }
+        }
+    }
+    return ans;
+}
+
 
 __________________________________________________________________________________________________________________________________________________________________
 ListNode* Solution::deleteDuplicates(ListNode* A) {
